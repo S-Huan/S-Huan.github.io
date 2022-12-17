@@ -8,7 +8,33 @@
       <link href="/2022/12/16/text-md/"/>
       <url>/2022/12/16/text-md/</url>
       
-        <content type="html"><![CDATA[<p>这是我的第eererrer个笔记，记录了我的学习历程。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Git基础操作"><a href="#Git基础操作" class="headerlink" title="Git基础操作"></a>Git基础操作</h1><ol><li>git的流程就是 先本地操作，然后在提交给暂存区，然后给仓库，然后给远程</li><li>本地文件的每一步改变，都要再次提交给仓库，仓库也有再次提交给远程</li><li>仓库的每一次改变，包括删除文件，都要提交给仓库一次</li><li>目的都是保证 仓库，远程，本地是逻辑上统一的，除非你本地不想让仓库看，但是，仓库一定是和远程统一的</li><li>也就是说，一切都是本地操作，一损俱损，想给仓库或者远程赠增删改查，就要先改变本地，然后一步步提交上去<h2 id="获取帮助信息"><a href="#获取帮助信息" class="headerlink" title="获取帮助信息"></a>获取帮助信息</h2></li></ol><p>git help &lt; verb &gt;<br>git config -h</p><h2 id="创建git仓库"><a href="#创建git仓库" class="headerlink" title="创建git仓库"></a>创建git仓库</h2><blockquote><p>会创建一个名为 .git 的隐藏目录，这个 .git 目录就是当前项目的 Git 仓库，里面包含了初始的必要<br>文件，这些文件是 Git 仓库的必要组成部分。</p></blockquote><p>git init </p><h2 id="查询文件状态"><a href="#查询文件状态" class="headerlink" title="查询文件状态"></a>查询文件状态</h2><p>git status<br>git status -s</p><h2 id="提交到暂存区"><a href="#提交到暂存区" class="headerlink" title="提交到暂存区"></a>提交到暂存区</h2><p>git add &lt; verb &gt;    可以用它开始跟踪新文件  把已跟踪的、且已修改的文件放到暂存区<br>git add .        一次性将所有的新增和修改过的文件加入暂存区</p><h2 id="取消暂存区文件"><a href="#取消暂存区文件" class="headerlink" title="取消暂存区文件"></a>取消暂存区文件</h2><p>git reset &lt; verb &gt;</p><h2 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h2><p>git commit -m ” 描述消息“        提交暂存区文件到仓库<br>git commit -a -m ”描述消息“    可以把工作区文件提交到暂存区</p><h2 id="恢复工作区文件"><a href="#恢复工作区文件" class="headerlink" title="恢复工作区文件"></a>恢复工作区文件</h2><blockquote><p>把对工作区中对应文件的修改，还原成 Git 仓库中所保存的版本</p></blockquote><p>git checkout – &lt; verb &gt; 命令</p><h2 id="移除仓库文件"><a href="#移除仓库文件" class="headerlink" title="移除仓库文件"></a>移除仓库文件</h2><ol><li>git rm -f &lt; verb &gt;    从仓库和工作区同时移除</li><li>git rm –cached  &lt; verb &gt;   只删除git仓库文件，保留工作区文件</li><li>git rm –cached -r 文件名   删除文件夹，包括递归文件夹  保留工作区文件</li></ol><h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>创建一个.gitignore的配置文件，在配置文件里，添加要忽略的文件，可以用glob模式简化正则表达式</p><h2 id="查看提交仓库历史"><a href="#查看提交仓库历史" class="headerlink" title="查看提交仓库历史"></a>查看提交仓库历史</h2><p>git log  显示最近记录<br>git log -2  显示最进提交2个记录</p><h2 id="reset回退-和-revert撤销"><a href="#reset回退-和-revert撤销" class="headerlink" title="reset回退 和 revert撤销"></a>reset回退 和 revert撤销</h2><p>在利用git实现多人合作程序开发的过程中，我们有时会出现 <strong>错误提交</strong> 的情况，</p><p>此时我们希望能撤销提交操作, 或者想要回退到某个版本</p><ol><li>git log  –pretty=online   在一行上显示所有提交历史，查找提交ID</li><li>reset =&gt; 回退到某个版本 <code>git reset --hard 版本号</code></li><li>evert =&gt; 撤销某个版本内容的内容修改 <code>git revert -n 版本号</code></li></ol><p>博客参考: <a href="https://blog.csdn.net/yxlshk/article/details/79944535" title="https://blog.csdn.net/yxlshk/article/details/79944535">https://blog.csdn.net/yxlshk/article/details/79944535</a></p><p>如果git reset 后, 版本回退了, 无法直接push 到远程仓库(因为远程仓库版本更加新) =&gt; git push -f 覆盖推送即可<br>效果: 将远程仓库的版本, 也进行了回退</p><h1 id="Git本地分支"><a href="#Git本地分支" class="headerlink" title="Git本地分支"></a>Git本地分支</h1><h2 id="主分支"><a href="#主分支" class="headerlink" title="主分支"></a>主分支</h2><blockquote><p>master主分支，git默认帮忙创建的。一般不会直接操作主分支，用来保存和记录整个项目已完成的功能代码。</p></blockquote><h2 id="功能分支"><a href="#功能分支" class="headerlink" title="功能分支"></a>功能分支</h2><blockquote><p>专门用来开发新功能的分支,从主分支上临时分出来，当任务介绍后再合并在主分支上</p></blockquote><h2 id="查看分支列表"><a href="#查看分支列表" class="headerlink" title="查看分支列表"></a>查看分支列表</h2><p>git branch  查询仓库所有分支列表<br>带 * 号为当前分支</p><h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><blockquote><p>创建的分支不会自动切换到新分支，要手动切换</p></blockquote><p>git branch 分支名称   基于当前分支创建新分支，新分支代码和当前分支一样</p><h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><p>git checkout 分支名称   </p><h3 id="快速创建切换分支"><a href="#快速创建切换分支" class="headerlink" title="快速创建切换分支"></a>快速创建切换分支</h3><p>git checkout -b  分支名称    创建新分支，同时自动切换为新分支</p><h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><ul><li>当代码合并之后，老的分支就没有用了，要删除<br>git branch -d 分支名称</li></ul><h1 id="Git远程分支"><a href="#Git远程分支" class="headerlink" title="Git远程分支"></a>Git远程分支</h1><h2 id="本地分支推送远程仓库"><a href="#本地分支推送远程仓库" class="headerlink" title="本地分支推送远程仓库"></a>本地分支推送远程仓库</h2><ul><li>第一次推送加 -u  以后可以不加<br>git push -u 远程仓库别名 本地分支名称:远程分支名称    (推送本地分支，并创建不同名称的远程分支)<br>git push -u 远程仓库别名 本地分支名称    （推送本地分支，并创建名称一致的远程分支）</li></ul><h2 id="远程分支推送本地仓库"><a href="#远程分支推送本地仓库" class="headerlink" title="远程分支推送本地仓库"></a>远程分支推送本地仓库</h2><p>git checkout 远程分支名称<br>git checkout -b 本地分支名称 远程仓库名称/远程分支名称</p><h2 id="查看远程分支列表"><a href="#查看远程分支列表" class="headerlink" title="查看远程分支列表"></a>查看远程分支列表</h2><p>git remote show 远程仓库名称<br>git remote -v</p><h2 id="拉取远程分支最新代码"><a href="#拉取远程分支最新代码" class="headerlink" title="拉取远程分支最新代码"></a>拉取远程分支最新代码</h2><p>git pull （拉取最新代码，保持当前分支与远程分支一致）</p><h2 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h2><p>git push 远程仓库名称 –delete 远程分支名称</p><h2 id="修改远程仓库地址"><a href="#修改远程仓库地址" class="headerlink" title="修改远程仓库地址"></a>修改远程仓库地址</h2><ol><li>直接修改远程仓库地址</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin 复制上仓库地址</span><br></pre></td></tr></table></figure><ol start="2"><li>先删除再修改地址</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote rm origin</span><br><span class="line">git remote add origin 复制上仓库地址</span><br></pre></td></tr></table></figure><blockquote></blockquote><h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><ul><li>合并分支一定要在主分支上进行</li></ul><ol><li>切换到主分支 git checkout master</li><li>git merge 要合并分支名称    </li></ol><h3 id="合并分支冲突"><a href="#合并分支冲突" class="headerlink" title="合并分支冲突"></a>合并分支冲突</h3><ol><li>git checkout master</li><li>git merge 分支名称</li><li>打开冲突的文件，手动确认，此时文件变为已修改文件</li><li>git add .   添加文件到暂存区</li><li>git commit -m “描述消息”</li></ol><h1 id="GIthub"><a href="#GIthub" class="headerlink" title="GIthub"></a>GIthub</h1><ol><li>创建本地仓库，git init</li><li>创建ssh秘钥，ssh-keygen -t rsa -b 4096 -C “github创建邮箱”     </li><li>生成ssh秘钥,  存放在用户-用户名-.ssh里  –然后配置github</li><li>检测是否成功  ssh -T <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;</a></li><li>保证仓库里面有提交的信息，也就是保证仓库与工作区同步过</li><li>git remote add 远程仓库名 <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a>:S-Huan/shaohuan_De_notes.git</li><li>git push -u 远程仓库名 远程分支名</li></ol>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第三个</title>
+      <link href="/2022/12/16/03/"/>
+      <url>/2022/12/16/03/</url>
+      
+        <content type="html"><![CDATA[<p>这是我的第三个笔记，记录了我的学习历程。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第二个</title>
+      <link href="/2022/12/16/02/"/>
+      <url>/2022/12/16/02/</url>
+      
+        <content type="html"><![CDATA[<p>这是我的第二个笔记，记录了我的学习历程。</p>]]></content>
       
       
       
@@ -68,7 +94,7 @@
       <link href="/link/index.html"/>
       <url>/link/index.html</url>
       
-        <content type="html"><![CDATA[<p>这是友情链接， 但是我不知道怎么显示</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -91,6 +117,39 @@
       <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[<p>这是tag便签， 但是我不知道怎么显示</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/css/custom.css"/>
+      <url>/css/custom.css</url>
+      
+        <content type="html"><![CDATA[/* 页脚与头图透明 */#footer {    background: rgba(55, 55, 55, 0.6) !important;}#page-header {    background: transparent !important;}/* 白天模式遮罩透明 */#footer::before {    background: rgba(55, 55, 55, 0.6) !important;}#page-header::before {    background: transparent !important;}/* 夜间模式遮罩透明 */[data-theme="dark"] #footer::before {    background: rgba(55, 55, 55, 0.6) !important;}[data-theme="dark"] #page-header::before {    background: transparent !important;}/* 翻页按钮居中 */#pagination {    width: 100%;    margin: auto;}/* 侧边栏个人信息卡片动态渐变色 */#aside-content>.card-widget.card-info {    background: linear-gradient(-45deg,            #e8d8b9,            #eccec5,            #a3e9eb,            #bdbdf0,            #eec1ea);    box-shadow: 0 0 5px rgb(66, 68, 68);    position: relative;    background-size: 400% 400%;    -webkit-animation: Gradient 10s ease infinite;    -moz-animation: Gradient 10s ease infinite;    animation: Gradient 10s ease infinite !important;}@-webkit-keyframes Gradient {    0% {        background-position: 0% 50%;    }    50% {        background-position: 100% 50%;    }    100% {        background-position: 0% 50%;    }}@-moz-keyframes Gradient {    0% {        background-position: 0% 50%;    }    50% {        background-position: 100% 50%;    }    100% {        background-position: 0% 50%;    }}@keyframes Gradient {    0% {        background-position: 0% 50%;    }    50% {        background-position: 100% 50%;    }    100% {        background-position: 0% 50%;    }}/* 黑夜模式适配 */[data-theme="dark"] #aside-content>.card-widget.card-info {    background: #191919ee;}/* 个人信息Follow me按钮 */#aside-content>.card-widget.card-info>#card-info-btn {    background-color: #3eb8be;    border-radius: 8px;}:root {    --trans-light: rgba(255, 255, 255, 0.88);    --trans-dark: rgba(25, 25, 25, 0.88);    --border-style: 1px solid rgb(169, 169, 169);    --backdrop-filter: blur(5px) saturate(150%);}/* 首页文章卡片 */#recent-posts>.recent-post-item {    background: var(--trans-light);    backdrop-filter: var(--backdrop-filter);    border-radius: 25px;    border: var(--border-style);}/* 首页侧栏卡片 */#aside-content .card-widget {    background: var(--trans-light);    backdrop-filter: var(--backdrop-filter);    border-radius: 18px;    border: var(--border-style);}/* 文章页、归档页、普通页面 */div#post,div#page,div#archive {    background: var(--trans-light);    backdrop-filter: var(--backdrop-filter);    border: var(--border-style);    border-radius: 20px;}/* 导航栏 */#page-header.nav-fixed #nav {    background: rgba(255, 255, 255, 0.75);    backdrop-filter: var(--backdrop-filter);}[data-theme="dark"] #page-header.nav-fixed #nav {    background: rgba(0, 0, 0, 0.7) !important;}/* 夜间模式遮罩 */[data-theme="dark"] #recent-posts>.recent-post-item,[data-theme="dark"] #aside-content .card-widget,[data-theme="dark"] div#post,[data-theme="dark"] div#archive,[data-theme="dark"] div#page {    background: var(--trans-dark);}/* 夜间模式页脚页头遮罩透明 */[data-theme="dark"] #footer::before {    background: transparent !important;}[data-theme="dark"] #page-header::before {    background: transparent !important;}/* 阅读模式 */.read-mode #aside-content .card-widget {    background: rgba(158, 204, 171, 0.5) !important;}.read-mode div#post {    background: rgba(158, 204, 171, 0.5) !important;}/* 夜间模式下的阅读模式 */[data-theme="dark"] .read-mode #aside-content .card-widget {    background: rgba(25, 25, 25, 0.9) !important;    color: #ffffff;}[data-theme="dark"] .read-mode div#post {    background: rgba(25, 25, 25, 0.9) !important;    color: #ffffff;}/* 自定义底部  start */#ft {    max-width: 1200px;    margin: 0 auto 12px;    display: flex;    color: rgb(255 255 255 / 80%) !important;    text-align: left;    flex-wrap: wrap;}.ft-item-1,.ft-item-2 {    display: flex;    height: 100%;    padding: 10px 14px;}.ft-item-1 {    flex-direction: column;    flex: 2;}.ft-item-2 {    flex: 1;    flex-direction: column;}.t-top {    display: flex;}.t-top .t-t-l {    display: flex;    flex-direction: column;    flex: 1.4;    margin-right: 10px;}.t-top .t-t-l .bg-ad {    width: 85%;    border-radius: 10px;    padding: 0 10px;}.btn-xz-box {    margin-top: 10px;}.btn-xz {    display: block;    background-color: var(--btn-bg);    color: var(--btn-color);    text-align: center;    line-height: 2.4;    margin: 8px 0;    cursor: pointer !important;}.btn-xz:hover {    text-decoration: none !important;}.btn-xz-box:hover .btn-xz {    background-color: #6f42c1;}.t-top .t-t-r {    display: flex;    flex-direction: column;    flex: 1;}.ft-links {    padding: 0 14px;    list-style: none;    margin-top: 0 !important;}.ft-links li a {    display: inline-block !important;    width: 50%;    cursor: pointer !important;}.ft-links li a:hover {    text-decoration: none !important;    color: #6f42c1 !important;}.ft-item-2 .ft-img-group {    width: 100%;}.ft-t {    font-size: 0.8rem;    margin-bottom: 20px;    line-height: 1;    font-weight: 600;}.t-l-t {    padding-left: 14px;}.ft-item-2 .ft-img-group .img-group-item {    display: inline-block;    width: 18.4%;    margin-right: 14px;    margin-bottom: 6px;}.ft-item-2 .ft-img-group .img-group-item a {    display: inline-block;    width: 100%;    height: 100%;    cursor: pointer !important;}.ft-item-2 .ft-img-group .img-group-item a img {    width: 100%;    max-height: 80px;}@media screen and (max-width: 768px) {    .ft-item-1 {        flex-basis: 100% !important;    }    .ft-item-2 {        flex-basis: 100% !important;    }    .t-top .t-t-l .bg-ad {        width: 100%;    }}@media screen and (max-width: 576px) {    .t-top {        flex-wrap: wrap;    }    .t-top .t-t-l {        flex-basis: 100% !important;    }    .t-top .t-t-r {        margin-top: 16px;        flex-basis: 100% !important;    }}/* 自定义底部  End */]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/js/universe.js"/>
+      <url>/js/universe.js</url>
+      
+        <content type="html"><![CDATA[function dark() {window.requestAnimationFrame=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;var n,e,i,h,t=.05,s=document.getElementById("universe"),o=!0,a="180,184,240",r="226,225,142",d="226,225,224",c=[];function f(){n=window.innerWidth,e=window.innerHeight,i=.216*n,s.setAttribute("width",n),s.setAttribute("height",e)}function u(){h.clearRect(0,0,n,e);for(var t=c.length,i=0;i<t;i++){var s=c[i];s.move(),s.fadeIn(),s.fadeOut(),s.draw()}}function y(){this.reset=function(){this.giant=m(3),this.comet=!this.giant&&!o&&m(10),this.x=l(0,n-10),this.y=l(0,e),this.r=l(1.1,2.6),this.dx=l(t,6*t)+(this.comet+1-1)*t*l(50,120)+2*t,this.dy=-l(t,6*t)-(this.comet+1-1)*t*l(50,120),this.fadingOut=null,this.fadingIn=!0,this.opacity=0,this.opacityTresh=l(.2,1-.4*(this.comet+1-1)),this.do=l(5e-4,.002)+.001*(this.comet+1-1)},this.fadeIn=function(){this.fadingIn&&(this.fadingIn=!(this.opacity>this.opacityTresh),this.opacity+=this.do)},this.fadeOut=function(){this.fadingOut&&(this.fadingOut=!(this.opacity<0),this.opacity-=this.do/2,(this.x>n||this.y<0)&&(this.fadingOut=!1,this.reset()))},this.draw=function(){if(h.beginPath(),this.giant)h.fillStyle="rgba("+a+","+this.opacity+")",h.arc(this.x,this.y,2,0,2*Math.PI,!1);else if(this.comet){h.fillStyle="rgba("+d+","+this.opacity+")",h.arc(this.x,this.y,1.5,0,2*Math.PI,!1);for(var t=0;t<30;t++)h.fillStyle="rgba("+d+","+(this.opacity-this.opacity/20*t)+")",h.rect(this.x-this.dx/4*t,this.y-this.dy/4*t-2,2,2),h.fill()}else h.fillStyle="rgba("+r+","+this.opacity+")",h.rect(this.x,this.y,this.r,this.r);h.closePath(),h.fill()},this.move=function(){this.x+=this.dx,this.y+=this.dy,!1===this.fadingOut&&this.reset(),(this.x>n-n/4||this.y<0)&&(this.fadingOut=!0)},setTimeout(function(){o=!1},50)}function m(t){return Math.floor(1e3*Math.random())+1<10*t}function l(t,i){return Math.random()*(i-t)+t}f(),window.addEventListener("resize",f,!1),function(){h=s.getContext("2d");for(var t=0;t<i;t++)c[t]=new y,c[t].reset();u()}(),function t(){document.getElementsByTagName('html')[0].getAttribute('data-theme')=='dark'&&u(),window.requestAnimationFrame(t)}()};dark()]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/css/universe.css"/>
+      <url>/css/universe.css</url>
+      
+        <content type="html"><![CDATA[/* 背景宇宙星光  */#universe {    display: block;    position: fixed;    margin: 0;    padding: 0;    border: 0;    outline: 0;    left: 0;    top: 0;    width: 100%;    height: 100%;    pointer-events: none;    /* 这个是调置顶的优先级的，-1在文章页下面，背景上面，个人推荐这种 */    z-index: -1;}]]></content>
       
     </entry>
     
