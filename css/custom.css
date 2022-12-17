@@ -94,17 +94,18 @@
     background: #191919ee;
 }
 
-/* 个人信息Follow me按钮 */
+/* 个人信息Follow me按钮
 #aside-content>.card-widget.card-info>#card-info-btn {
     background-color: #3eb8be;
     border-radius: 8px;
-}
+} */
 
 :root {
     --trans-light: rgba(255, 255, 255, 0.88);
     --trans-dark: rgba(25, 25, 25, 0.88);
     --border-style: 1px solid rgb(169, 169, 169);
     --backdrop-filter: blur(5px) saturate(150%);
+    background-clip: content-box;
 }
 
 /* 首页文章卡片 */
@@ -337,5 +338,11 @@ div#archive {
     }
 }
 
+#web_bg {
+    
+background-position: top;
+background-attachment: scroll;
+background-clip: content-box;
+}
 /* 自定义底部  End */
 
