@@ -4,6 +4,7 @@
     --trans-dark: rgba(25, 25, 25, 0.88);
     --border-style: 1px solid rgb(169, 169, 169);
     --backdrop-filter: blur(5px) saturate(150%);
+    --backdrop-filter2: blur(0) saturate(0);
 }
 /* 页脚与头图透明 */
 #footer {
@@ -16,18 +17,16 @@
 }
 
 #page-header {
-    backdrop-filter: var(--backdrop-filter);
+    animation: mirror-fade-in 2s;
 }
 
 @keyframes mirror-fade-in {
     0% {
-        filter: brightness(0) grayscale(100%) contrast(0) blur(5px) drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
-        opacity: 0;
+        backdrop-filter: var(--backdrop-filter);
     }
 
     100% {
-        filter: brightness(100%) grayscale(0%) contrast(100%) blur(0) drop-shadow(0 0 0 rgba(0, 0, 0, 0));
-        opacity: 1;
+    backdrop-filter: var(--backdrop-filter2);
     }
 }
 /* 白天模式遮罩透明 */
